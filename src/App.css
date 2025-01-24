@@ -50,9 +50,9 @@ body {
   margin-top: 50%;
   border-radius: 10px;
   overflow: hidden;
-  padding: 1rem;
+  padding: 2rem;
   display: grid;
-  row-gap: 1rem;
+  row-gap: 3rem;
 }
 
 .screen {
@@ -60,19 +60,29 @@ body {
   width: 100%;
   height: 15rem;
   color: white;
-  /* color: black; */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: end;
+  align-items: end;
   position: relative;
 }
 
 .screen-filter {
   content: "";
-  /* background-color: rgba(255, 255, 255, 0.2); */
+  background-color: rgba(255, 255, 255, 0.2);
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  filter: blur(3px);
+  border-radius: 3px;
+  backdrop-filter: brightness(100%);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  border: 5px solid var(--color-bg);
+}
+
+.screen-content {
+  font-size: 7.4rem;
 }
 
 .buttons {

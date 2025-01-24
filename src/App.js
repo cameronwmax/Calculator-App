@@ -6,7 +6,7 @@ function App() {
     <div className="calculator">
       <div className="screen">
         <div className="screen-filter"></div>
-        SCREEN
+        <span className="screen-content">0</span>
       </div>
 
       <div className="buttons">
