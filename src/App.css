@@ -1,0 +1,99 @@
+/* 
+Background: #F2F2F2 (Very Light Gray)
+Primary: #4A4A4A (Charcoal Gray)
+Secondary: #D9D9D9 (Soft Gray for buttons)
+Accent: #3498DB (Muted Blue for operators)
+
+Background: #1E1E1E (Near Black)
+Primary: #EAEAEA (Light Gray for text)
+Secondary: #333333 (Dark Gray for buttons)
+Accent: #FF9500 (Bright Orange for operators)
+*/
+:root {
+  /* --color-bg: #f2f2f2;
+  --color-primary: #4a4a4a;
+  --color-secondary: #d9d9d9;
+  --color-accent: #3498db; */
+
+  --color-bg: #1e1e1e;
+  --color-primary: #eaeaea;
+  --color-secondary: #333333;
+  --color-accent: #ff9500;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1;
+  font-weight: 500;
+  background-color: lightslategray;
+  max-height: 100dvh;
+  display: flex;
+  justify-content: center;
+}
+
+.calculator {
+  width: min(90vw, 40rem);
+  height: auto;
+  background-color: var(--color-bg);
+  margin-top: 50%;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 1rem;
+  display: grid;
+  row-gap: 1rem;
+}
+
+.screen {
+  background-color: var(--color-bg);
+  width: 100%;
+  height: 15rem;
+  color: white;
+  /* color: black; */
+  position: relative;
+}
+
+.screen-filter {
+  content: "";
+  /* background-color: rgba(255, 255, 255, 0.2); */
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: blur(3px);
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.btn {
+  font-size: 2.4rem;
+  color: var(--color-primary);
+  width: 100%;
+  height: 8rem;
+  border-radius: 15px;
+  background-color: var(--color-secondary);
+  border: none;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 10px rgba(255, 255, 255, 0.4);
+}
+
+.btn-lg {
+  grid-column: 3/-1;
+  background-color: var(--color-accent);
+}
