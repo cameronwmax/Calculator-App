@@ -13,7 +13,9 @@ Accent: #FF9500 (Bright Orange for operators)
   --color-bg: #1e1e1e;
   --color-primary: #eaeaea;
   --color-secondary: #333333;
+  --color-secondary-shade: #222222;
   --color-accent: #ff9500;
+  --color-accent-shade: #e68600;
   --color-text: #fff;
 }
 
@@ -119,7 +121,7 @@ body {
   transition: all 0.1s;
 }
 .btn:active {
-  background-color: #222222;
+  background-color: var(--color-secondary-shade);
   box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
   transform: scale(0.97);
 }
@@ -130,8 +132,7 @@ body {
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
 }
 .btn-lg:active {
-  background-color: #e68600;
-  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
+  background-color: var(--color-accent-shade);
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
   transform: scale(0.97);
 }
