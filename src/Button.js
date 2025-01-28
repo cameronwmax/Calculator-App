@@ -1,8 +1,8 @@
-function Button({ label, type, handleClick }) {
+function Button({ label, type, onClick }) {
   return (
     <button
       className={`btn ${type === "equal" ? "btn-lg" : ""}`}
-      onClick={() => handleClick(label, type)}
+      onClick={() => onClick(label, type)}
     >
       {label}
     </button>

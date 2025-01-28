@@ -1,6 +1,10 @@
 import { useRef, useState } from "react";
 import "./App.css";
 import Button from "./Button";
+import Buttons from "./components/Buttons";
+import Calculator from "./components/Calculator";
+import Error from "./components/Error";
+import Screen from "./components/Screen";
 
 const buttons = [
   { label: "C", type: "clear" },
@@ -70,33 +74,10 @@ function App() {
   }
 
   return (
-    <div className="calculator">
-      <div className="screen">
-        {!isError ? (
-          <>
-            <div className="screen-filter"></div>
-            <span className="screen-equation">{equation}</span>
-            <span className="screen-input">{input}</span>
-          </>
-        ) : (
-          <>
-            <div className="screen-filter"></div>
-            <span className="screen-error">Error</span>
-          </>
-        )}
-      </div>
-
-      <div className="buttons">
-        {buttons.map((button) => (
-          <Button
-            label={button.label}
-            type={button.type}
-            handleClick={handleClick}
-            key={button.label}
-          />
-        ))}
-      </div>
-    </div>
+    <Calculator>
+      <Screen isError={isError} equation={equation} input={input} />
+      <Buttons buttons={buttons} onClick={handleClick} />
+    </Calculator>
   );
 }
 
