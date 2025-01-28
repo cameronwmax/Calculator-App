@@ -35,8 +35,7 @@ function App() {
     if (type.startsWith("operator") && /[+\-x÷]/.test(equation)) {
       if (/[+\-x÷]/.test(equation[equation.length - 1])) {
         setInput(label);
-        // Bug with replacing negative signs
-        setEquation((cur) => cur.replace(cur[cur.length - 1], label));
+        setEquation((cur) => cur.substring(0, cur.length - 1) + label);
         return;
       }
 
@@ -44,7 +43,7 @@ function App() {
     }
 
     setInput(label);
-    setEquation((cur) => cur + label);
+    setEquation((cur) => `${cur}  ${label}`);
   }
 
   function handleClear() {
@@ -53,25 +52,12 @@ function App() {
   }
 
   function handleOperation(operation) {
-    // If current equation is "2+2" and next input is subtraction
-    // can't split depending on current input operation, NaN gets returned
-    console.log(operation);
-    let val1, val2;
+    if (equation.includes("x"))
+      return setEquation(new Function(`return ${equation.replace("x", "*")}`)());
+    if (equation.includes("÷"))
+      return setEquation(new Function(`return ${equation.replace("÷", "/")}`)());
 
-    switch (operation) {
-      case "add":
-        [val1, val2] = equation.split("+");
-        console.log(`Addition: ${val1}, ${val2}`);
-        setEquation(Number(val1) + Number(val2));
-        break;
-      case "subtract":
-        [val1, val2] = equation.split("-");
-        console.log(`Subtraction: ${val1}, ${val2}`);
-        setEquation(Number(val1) - Number(val2));
-        break;
-      default:
-        break;
-    }
+    setEquation(new Function(`return ${equation}`));
   }
 
   return (
