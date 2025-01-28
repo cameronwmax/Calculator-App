@@ -24,6 +24,20 @@ const buttons = [
   { label: "=", type: "equal" },
 ];
 
+function calculateHelper(setter, val1, val2, operator) {
+  const num1 = Number(val1);
+  const num2 = Number(val2);
+
+  const operations = {
+    "+": (a, b) => a + b,
+    "-": (a, b) => a - b,
+    "x": (a, b) => a * b,
+    "÷": (a, b) => (b !== 0 ? a / b : "Cannot divid by zero"),
+  };
+
+  setter(operations[operator](num1, num2));
+}
+
 function App() {
   const [input, setInput] = useState(0);
   const [equation, setEquation] = useState("");
@@ -38,26 +52,21 @@ function App() {
         setEquation((cur) => cur.substring(0, cur.length - 1) + label);
         return;
       }
-
-      handleOperation(type.split("/")[1]);
+      handleOperation(equation.split(" "));
     }
 
     setInput(label);
-    setEquation((cur) => `${cur}  ${label}`);
+    setEquation((cur) => (cur.length === 0 ? label : `${cur} ${label}`));
   }
 
   function handleClear() {
+    if (isError) setIsError((cur) => !cur);
     setInput(0);
     setEquation("");
   }
 
-  function handleOperation(operation) {
-    if (equation.includes("x"))
-      return setEquation(new Function(`return ${equation.replace("x", "*")}`)());
-    if (equation.includes("÷"))
-      return setEquation(new Function(`return ${equation.replace("÷", "/")}`)());
-
-    setEquation(new Function(`return ${equation}`));
+  function handleOperation([val1, operator, val2]) {
+    calculateHelper(setEquation, val1, val2, operator);
   }
 
   return (
@@ -69,7 +78,12 @@ function App() {
             <span className="screen-equation">{equation}</span>
             <span className="screen-input">{input}</span>
           </>
-        ) : null}
+        ) : (
+          <>
+            <div className="screen-filter"></div>
+            <span className="screen-error">Error</span>
+          </>
+        )}
       </div>
 
       <div className="buttons">
