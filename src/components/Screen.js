@@ -1,4 +1,8 @@
-function Screen({ isError, equation, input }) {
+import { useCalculator } from "../context/useCalculator";
+
+function Screen() {
+  const { isError, equation, input } = useCalculator();
+
   return (
     <div className="screen">
       {!isError ? (

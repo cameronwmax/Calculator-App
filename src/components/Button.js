@@ -1,8 +1,12 @@
+import { useCalculator } from "../context/useCalculator";
+
 function Button({ label, type, onClick }) {
+  const { handleClick } = useCalculator();
+
   return (
     <button
       className={`btn ${type === "equal" ? "btn-lg" : ""}`}
-      onClick={() => onClick(label, type)}
+      onClick={() => handleClick(label, type)}
     >
       {label}
     </button>

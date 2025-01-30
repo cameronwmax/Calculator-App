@@ -1,10 +1,11 @@
-import Button from "../Button";
+import { buttons } from "../constants/buttons";
+import Button from "./Button";
 
-function Buttons({ buttons, onClick }) {
+function Buttons() {
   return (
     <div className="buttons">
       {buttons.map((button) => (
-        <Button label={button.label} type={button.type} onClick={onClick} key={button.label} />
+        <Button label={button.label} type={button.type} key={button.label} />
       ))}
     </div>
   );
