@@ -1,49 +1,67 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function calculateHelper(setter, val1, val2, operator) {
-  const num1 = Number(val1);
-  const num2 = Number(val2);
+const initialState = {
+  v1: "",
+  operator: "",
+  v2: "",
+};
+
+function calculateHelper({ v1, operator, v2 }, setter) {
+  const num1 = Number(v1);
+  const num2 = Number(v2);
 
   const operations = {
     "+": (a, b) => a + b,
     "-": (a, b) => a - b,
     "x": (a, b) => a * b,
-    "÷": (a, b) => (b !== 0 ? a / b : "Cannot divid by zero"),
+    "÷": (a, b) => (b !== 0 ? a / b : "Cannot divide by zero"),
   };
 
-  setter(operations[operator](num1, num2));
+  const result = operations[operator](num1, num2);
+  setter({ "v1": String(result), operator: "", "v2": "" });
 }
 
 function useCalculator() {
-  const [input, setInput] = useState(0);
-  const [equation, setEquation] = useState("");
-  // error message: Error
+  const [equation, setEquation] = useState(initialState);
+  const [equationPos, setEquationPos] = useState("v1");
+  const [input, setInput] = useState("");
   const [isError, setIsError] = useState(false);
 
   function handleClick(label, type) {
+    console.log(label, type);
     if (type === "clear") return handleClear();
-    if (type.startsWith("operator") && /[+\-x÷]/.test(equation)) {
-      if (/[+\-x÷]/.test(equation[equation.length - 1])) {
-        setInput(label);
-        setEquation((cur) => cur.substring(0, cur.length - 1) + label);
-        return;
-      }
-      handleOperation(equation.split(" "));
-    }
+    if (type.startsWith("operator")) return handleOperator(label);
 
     setInput(label);
-    setEquation((cur) => (cur.length === 0 ? label : `${cur} ${label}`));
+    setEquation((prev) => ({ ...prev, [equationPos]: prev[equationPos] + label }));
   }
 
   function handleClear() {
-    if (isError) setIsError((cur) => !cur);
-    setInput(0);
-    setEquation("");
+    setEquation(initialState);
+    setEquationPos("v1");
+    setInput("");
+    setIsError(false);
   }
 
-  function handleOperation([val1, operator, val2]) {
-    calculateHelper(setEquation, val1, val2, operator);
+  function handleOperator(label) {
+    // Check if equation is ready to be calculated
+    if (equationPos === "v2") calculateHelper(equation, setEquation);
+    setEquation((prev) => ({ ...prev, operator: label }));
+    setInput(label);
+    setEquationPos("v2");
   }
+
+  function handleEquation(equation) {
+    console.log(equation);
+    // Check equation is valid for solving
+    // Equation needs to be spit by operator
+    // Calculate equation by operator
+    // Update screen
+  }
+
+  useEffect(() => {
+    console.log(equation);
+  }, [equation]);
 
   return { input, equation, isError, handleClick, handleClear };
 }
