@@ -19,6 +19,7 @@ function calculateHelper({ v1, operator, v2 }, setter) {
 
   const result = operations[operator](num1, num2);
   setter({ "v1": String(result), operator: "", "v2": "" });
+  return result;
 }
 
 function useCalculator() {
@@ -30,6 +31,7 @@ function useCalculator() {
   function handleClick(label, type) {
     console.log(label, type);
     if (type === "clear") return handleClear();
+    if (type === "equal") return handleEquation();
     if (type.startsWith("operator")) return handleOperator(label);
 
     setInput(label);
@@ -44,19 +46,19 @@ function useCalculator() {
   }
 
   function handleOperator(label) {
-    // Check if equation is ready to be calculated
+    if (!equation.v1) return;
     if (equationPos === "v2") calculateHelper(equation, setEquation);
     setEquation((prev) => ({ ...prev, operator: label }));
     setInput(label);
     setEquationPos("v2");
   }
 
-  function handleEquation(equation) {
-    console.log(equation);
-    // Check equation is valid for solving
-    // Equation needs to be spit by operator
-    // Calculate equation by operator
-    // Update screen
+  function handleEquation() {
+    if (!equation.v1 || !equation.v2) return;
+    setEquationPos("v1");
+    const result = calculateHelper(equation, setEquation);
+    if (result > 999999) return setIsError((prev) => !prev);
+    setInput(result);
   }
 
   useEffect(() => {

@@ -1,4 +1,5 @@
 import { useCalculator } from "../context/useCalculator";
+import Error from "./Error";
 
 function Screen() {
   const { isError, equation, input } = useCalculator();
@@ -9,11 +10,7 @@ function Screen() {
       {!isError ? (
         <>
           <div className="screen-filter"></div>
-          {/* {!v1 || !v2 ? (
-            <span className="screen-equation"></span>
-          ) : ( */}
           <span className="screen-equation">{`${v1} ${operator} ${v2}`}</span>
-          {/* )} */}
           <span className="screen-input">{input}</span>
         </>
       ) : (
