@@ -15,6 +15,7 @@ function calculateHelper({ v1, operator, v2 }, setter) {
     "-": (a, b) => a - b,
     "x": (a, b) => a * b,
     "÷": (a, b) => (b !== 0 ? a / b : null),
+    "%": (a, b) => (a / 100) * b,
   };
 
   const result = operations[operator](num1, num2);
@@ -32,6 +33,7 @@ function useCalculator() {
     console.log(label, type);
     if (type === "clear") return handleClear();
     if (type === "equal") return handleEquation();
+    if (type === "percentage") return handlePercentage();
     if (type.startsWith("operator")) return handleOperator(label);
 
     setInput(label);
@@ -60,6 +62,12 @@ function useCalculator() {
     if (result === null) return setIsError(true);
     if (result > 999999) return setIsError(true);
     setInput(result);
+  }
+
+  function handlePercentage() {
+    if (!equationPos === "v1") return;
+    setEquation((prev) => ({ ...prev, operator: "%" }));
+    setEquationPos("v2");
   }
 
   useEffect(() => {
