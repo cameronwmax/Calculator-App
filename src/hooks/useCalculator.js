@@ -14,7 +14,7 @@ function calculateHelper({ v1, operator, v2 }, setter) {
     "+": (a, b) => a + b,
     "-": (a, b) => a - b,
     "x": (a, b) => a * b,
-    "÷": (a, b) => (b !== 0 ? a / b : "Cannot divide by zero"),
+    "÷": (a, b) => (b !== 0 ? a / b : null),
   };
 
   const result = operations[operator](num1, num2);
@@ -57,7 +57,8 @@ function useCalculator() {
     if (!equation.v1 || !equation.v2) return;
     setEquationPos("v1");
     const result = calculateHelper(equation, setEquation);
-    if (result > 999999) return setIsError((prev) => !prev);
+    if (result === null) return setIsError(true);
+    if (result > 999999) return setIsError(true);
     setInput(result);
   }
 
