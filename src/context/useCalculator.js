@@ -4,10 +4,10 @@ import useCalc from "../hooks/useCalculator";
 const CalculatorContext = createContext();
 
 function CalculatorProvider({ children }) {
-  const { input, equation, isError, handleClick, handleClear } = useCalc();
+  const { input, equation, isError, handleClick } = useCalc();
 
   return (
-    <CalculatorContext.Provider value={{ input, equation, isError, handleClick, handleClear }}>
+    <CalculatorContext.Provider value={{ input, equation, isError, handleClick }}>
       {children}
     </CalculatorContext.Provider>
   );

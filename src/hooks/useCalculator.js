@@ -65,7 +65,7 @@ function useCalculator() {
   }
 
   function handlePercentage() {
-    if (!equationPos === "v1") return;
+    if (equationPos !== "v1") return;
     setEquation((prev) => ({ ...prev, operator: "%" }));
     setEquationPos("v2");
   }
@@ -77,7 +77,7 @@ function useCalculator() {
     setInput(newValue);
   }
 
-  return { input, equation, isError, handleClick, handleClear };
+  return { input, equation, isError, handleClick };
 }
 
 export default useCalculator;
