@@ -34,6 +34,7 @@ function useCalculator() {
     if (type === "clear") return handleClear();
     if (type === "equal") return handleEquation();
     if (type === "percentage") return handlePercentage();
+    if (type === "toggle-sign") return handleToggleSign();
     if (type.startsWith("operator")) return handleOperator(label);
 
     setInput(label);
@@ -68,6 +69,13 @@ function useCalculator() {
     if (!equationPos === "v1") return;
     setEquation((prev) => ({ ...prev, operator: "%" }));
     setEquationPos("v2");
+  }
+
+  function handleToggleSign() {
+    if (!equation[equationPos]) return;
+    const newValue = -equation[equationPos];
+    setEquation((prev) => ({ ...prev, [equationPos]: newValue }));
+    setInput(newValue);
   }
 
   useEffect(() => {
