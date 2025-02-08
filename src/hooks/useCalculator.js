@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const initialState = {
   v1: "",
@@ -30,7 +30,6 @@ function useCalculator() {
   const [isError, setIsError] = useState(false);
 
   function handleClick(label, type) {
-    console.log(label, type);
     if (type === "clear") return handleClear();
     if (type === "equal") return handleEquation();
     if (type === "percentage") return handlePercentage();
@@ -77,10 +76,6 @@ function useCalculator() {
     setEquation((prev) => ({ ...prev, [equationPos]: newValue }));
     setInput(newValue);
   }
-
-  useEffect(() => {
-    console.log(equation);
-  }, [equation]);
 
   return { input, equation, isError, handleClick, handleClear };
 }
